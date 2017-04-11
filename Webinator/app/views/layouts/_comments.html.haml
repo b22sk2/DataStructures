@@ -1,0 +1,58 @@
+.row
+  .col-md-2
+    - if current_user.post_likes.where(:id => post.id).blank?
+      .btn.btn-link.post_like_button{:data => { post_id: post.id, likes_count: UserLikesPost.where("likeable_id" => post.id).count.to_s}}
+        = "Like (" + UserLikesPost.where("likeable_id" => post.id).count.to_s + ")"
+    - else
+      .btn.btn-link
+        = "Liked! (" + UserLikesPost.where("likeable_id" => post.id).count.to_s + ")"
+  .col-md-2
+    .btn.btn-link{"data-toggle" => "collapse", "data-target" => "#uniqueId" + unique_id }
+      - if !post.comments.blank?
+        = "Comment (" + post.comments.count.to_s + ")"
+      - else
+        Comment
+
+  .col-md-9
+.collapse{:id => "uniqueId" + unique_id}
+  = react_component('CommentsView',{count: post.comments.count,
+                                    user_id: current_user.id,
+                                    wall_id: post.wall.id,
+                                    post_id: post.id})
+  /
+    - post.comments.each do |comment|
+      .row
+        .col-md-1
+        .col-md-10
+          .panel.panel-default
+            .panel-heading
+              .row
+                .col-md-1
+                  %img{:src => comment.user.profile.avatar, :alt => "avatar image", :width => 25, :height => 25 }
+                .col-md-11
+                  = comment.user.profile.first_name + " said:"
+            .panel-body
+              = comment.text
+              .row
+                .col-md-1
+                  - if current_user.comment_likes.where(:id => comment.id).blank?
+                    .btn.btn-link.comment_like_button.comment_margin_fix{:data => { comment_id: comment.id, likes_count: UserLikesPost.where("likeable_id" => comment.id).count.to_s}}
+                      = "Like (" + UserLikesPost.where("likeable_id" => comment.id).count.to_s + ")"
+                  - else
+                    .btn.btn-link.comment_margin_fix
+                      = "Liked! (" + UserLikesPost.where("likeable_id" => comment.id).count.to_s + ")"
+                .col-md-11
+        .col-md-1
+/
+  .row
+    .col-md-1
+    .col-md-10
+      = form_for [current_user, post.wall, post, Comment.new], :class => "margin-fix" do |f|
+        .input-group
+          = f.text_field :text, { :class => "form-control", :placeholder => "Post a comment..." }
+          %span.input-group-btn
+            = f.submit "Post Comment", :class => "btn btn-default"
+    .col-md-1
+  .row
+    .col-md-12
+      &nbsp

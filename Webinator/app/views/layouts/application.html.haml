@@ -1,0 +1,99 @@
+%html
+  %head
+    %title Webinator
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    %link{:rel => :stylesheet, :type => :"text/css", :href => 'https://fonts.googleapis.com/css?family=Days+One'}
+    = csrf_meta_tags
+
+%body
+  %nav.navbar.navbar-full.cool-bg
+    .container-fluid
+      / Brand and toggle get grouped for better mobile display
+      .navbar-header
+        %button{:type => "button", :class => "navbar-toggle collapsed", "data-toggle" => "collapse", "data-target" => "#bs-example-navbar-collapse-1", "aria-expanded" => false}
+          %span.sr-only Toggle Navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.navbar-brand.little-padding-bottom
+          %p.logo W
+
+      / Collect the nav links, forms, and other content for toggling
+      .collapse.navbar-collapse#bs-example-navbar-collapse-1
+        %ul.nav.navbar-nav
+          / Profile link
+          =render "layouts/main_link", :name => "profile", :controller => "profiles", :model => "profile", :path => "profile"
+
+          / Wall link
+          =render "layouts/main_link", :name => "wall", :controller => "walls", :model => "wall", :path => "wall"
+
+          / Feed link
+          =render "layouts/main_link", :name => "feed", :controller => "feed_histories", :model => "feed_history", :path => "feed_history"
+					
+          -# Groups link
+          - unless current_user.nil?
+            - if params[:controller] == "groups"
+              %li{ :class => "nav-bar-link-active"}
+                = link_to "Your groups", user_groups_path(current_user.id), :method => :get, :class => "main-link"
+            - else
+              %li{ :class => "main-link"}
+                = link_to "Your groups", user_groups_path(current_user.id), :method => :get, :class => "main-link"
+
+          / user search
+          - if current_user
+            = form_tag(users_path,method: "get", class: "navbar-form navbar-left") do
+              .input-group
+                %span.input-group-btn
+                  = submit_tag("Search", class: "btn btn-default")
+                = text_field_tag :q, nil, class: 'form-control'
+
+            %li.btn.btn-lg.dropdown#notifications-widget{:data => { notifications: new_notifications}}
+              .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
+              %span.glyphicon.glyphicon-globe
+              - if @nots_count > 0
+                %span.badge.badge-super#notifications-badge
+                  = @nots_count
+              %ul.dropdown-menu.textfull.list-group
+                - if get_notifications.blank?
+                  %li.list-group-item
+                    You have no notifications!
+                - else
+                  - get_notifications.each do |notification|
+                    = render "layouts/notification", :notification => notification
+
+
+            %li.btn.btn-lg.dropdown#requests-widget{:data => { requests: new_requests}}
+              .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
+              %span.glyphicon.glyphicon-user
+              - if @reqs_count > 0
+                %span.badge.badge-super#requests-badge
+                  = @reqs_count
+              %ul.dropdown-menu.textfull.list-group
+                - if pending_friend_requests.blank?
+                  %li.list-group-item
+                    You have no more friend requests!
+                - else
+                  - pending_friend_requests.each do |request|
+                    = render "layouts/friend_request", :request => request
+							
+
+            %li.btn.btn-lg.dropdown
+              .dropdown-toggle.drop-fix{"data-toggle" => "dropdown", :role => :button, "aria-haspopup" => :true, "aria-expanded" => :false}
+              %span.glyphicon.glyphicon-cog
+              %ul.dropdown-menu
+                %li#editAccountListItem
+                  = link_to 'Edit Account', edit_user_registration_path(current_user)
+
+
+        %ul.nav.navbar-nav.navbar-right
+          - if current_user
+            %li= link_to "Sign out!", destroy_user_session_path, :class => "main-link"
+
+  - if notice
+    %p.alert.alert-success= notice
+  - if alert
+    %p.alert.alert-danger= alert
+
+
+  = yield

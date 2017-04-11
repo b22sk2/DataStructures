@@ -1,0 +1,136 @@
+.little-padding-bottom img {
+  margin-top: -9px;
+}
+
+body {
+  background-color: #E9EAED !important;
+}
+
+.cool-bg {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2462b8+0,2b81dd+95,8cbdea+100 */
+	background: #2E6DA4;
+	border-radius: 0 !important;
+
+}
+
+.hidden {
+  display: none;
+}
+
+
+/* The element to be centered, can also be of any width and height */ 
+nav.navbar.navbar-full.cool-bg .container-fluid .collapse.navbar-collapse .nav.navbar-nav li {
+  height: 50px;
+	vertical-align: middle !important;
+}
+
+.dropdown-menu.textfull {
+  width: 450px;
+}
+
+.notification_panel_body {
+	margin-left: 5px;
+  margin-right: 5px;
+}
+
+.list-group-item {
+	margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.request-link {
+  padding-top: 8px;
+}
+
+.btn-link {
+	color: #2e6da4 !important;
+}
+
+.button_to-fix {
+  position: absolute;
+}
+
+.button_to {
+  position: absolute;
+}
+
+.main-link{
+  color: white !important;
+}
+
+.main-link:hover {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#8cbdea+98,2b81dd+100,2b81dd+100 */
+background: #275b89; /* Old browsers */
+}
+
+.glyphicon-globe, .glyphicon-user, .glyphicon-cog {
+  color: white;
+  font-size: 21px;
+}
+
+.drop-fix {
+  position: absolute !important;
+  top: 0;
+  left: 3;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+}
+
+@media (max-width: 767px) {
+ .drop-fix {
+   width: 766px;
+ }
+
+ #editAccountListItem {
+   background-color: white;
+ }
+}
+
+.button_to-fix {
+  background: none;
+  border: none;
+  position: absolute;
+  bottom: 0;
+	
+}
+
+.logo {
+	color: white;
+	font-size: 25px;
+	font-family: 'Days One', sans-serif;
+	user-select: none;
+	border: 3px solid white;
+	padding: 5px;
+	margin-top: -9px;
+	border-radius: 8px;
+}
+
+.custom-eq {
+  font-size: 25px;
+  color: #00cc33;
+}
+
+.main-link:active {
+  background: #275b89;
+}
+
+.main-link:hover {
+	background: #275b89 !important;
+}
+
+.badge-super {
+  position: absolute !important;
+  left: 7;
+  top: 3 !important;
+  background-color: red !important;
+}
+
+.nav-bar-link-active {
+  background: #275b89;
+}
+
+.navbar-header .navbar-toggle .icon-bar {
+    background-color: white;
+}
