@@ -21,36 +21,30 @@ public class ZeroOneGame {
      * @return
      */
     public static int Sol(List<Integer> a) {
-        if (a.size()<=2) {
+        if (a.size() <= 2) {
             return 0;
         }
-        
-        while (a.get(0) != 1) {
-            if (a.isEmpty()) {
-                return 0;
-            }
+
+        if (a.get(0) == 1) {
             a.remove(0);
+
         }
 
-        while (a.get(a.size()-1)!=1) {
-            if (a.isEmpty()) {
-                return 0;
-            }
-            a.remove(a.size()-1);
-         
+        if (a.get(a.size() - 1) == 1) {
+            a.remove(a.size() - 1);
+
         }
-      
-         
-        if(a.size() > 4){
-            
-            boolean flag = a.get(1) == 1 && a.get(2) == 1;
-            if(flag)Sol(a.subList(0, a.size()-1));
-            flag =(a.get(1) == 1 && a.get(2) == 0) || (a.get(1) == 1 && a.get(2) == 0) ;
-        
+        Sol(a);
+        if (a.size() == 3) {
+            boolean flag = a.get(0) == 0 && a.get(1) == 1 && a.get(2) == 0;
+            if (flag) {
+                flag = a.get(0) == 0 && a.get(1) == 0 && a.get(2) == 0;
+                return 1;
             }
-        
-        
-        return 0;
+            return 0;
+        }
+        return Sol(a.subList(0, a.size()));
+
     }
 
     public static void main(String[] args) {
@@ -63,9 +57,12 @@ public class ZeroOneGame {
             for (int sequence_i = 0; sequence_i < n; sequence_i++) {
                 seq.add(in.nextInt());
             }
-     
 
-            // If Alice wins, print 'Alice' on a new line; otherwise, print 'Bob'
+            if (Sol(seq) == 0) {
+                System.out.println("Bob");
+            } else {
+                System.out.println("Alice");
+            }// If Alice wins, print 'Alice' on a new line; otherwise, print 'Bob'
         }
     }
 
