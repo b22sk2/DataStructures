@@ -1,0 +1,25 @@
+// Place all the styles related to the FeedHistories controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.comment_margin_fix {
+  margin-top: 10px;
+  margin-left: -15px;
+  margin-bottom: -10px !important;
+  padding-bottom: 0px !important;
+}
+
+.feed_title {
+  border-bottom: 1px solid lightgrey
+}
+
+
+.title_column {
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  #sortDropdownMenu {
+    margin-bottom: 5px;
+  }
+}

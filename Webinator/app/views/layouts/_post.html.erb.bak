@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-1">
+        <div class="thumbnail">
+          <img src=<%= post.user.profile.avatar %> alt="avatar image" width=50 height=50>
+        </div>
+      </div>
+      <div class="col-md-11">
+        <h3 class="panel-title">
+          <%- if current_user.id == post.user.id %>
+            You said:
+          <% else %>
+           <%= post.user.profile.first_name %> said:
+          <% end %>
+         </h3>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <p><%= post.text %> </p>
+  </div>
+</div>

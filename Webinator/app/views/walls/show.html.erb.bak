@@ -1,0 +1,50 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <%- if current_user.id == @wall.walled.id %>
+        <h2> Your wall! </h2>
+      <% else %>
+        <h2>
+          <%= link_to @wall.walled.profile.first_name + " " + @wall.walled.profile.last_name, user_profile_path(@wall.walled.id, @wall.walled.profile.id) %>
+        </h2>
+      <% end %>
+    </div>
+    <%- if @isFriend %>
+      <button id="postButton" type="button" class="btn btn-primary pull-right margin-right">Post on this wall</button>
+    <% end %>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-12">
+          <% if @isFriend %>
+            <%- if @posts %>
+              <% @posts.each do |post| %>
+                <%= render "layouts/post", :post => post %>
+              <% end %>
+            <% else %>
+              <div class="alert alert-info" role="alert"> There are no posts on this wall! </div>
+            <% end -%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="coverer"> &nbsp </div>
+
+<div id="postPopUp" class="panel panel-default content hidden">
+  <div class="panel-body">
+    <div class="page-header">
+      <h2>Say something nice <small>please...</small></h2>
+      <%= form_for [current_user, @wall, Post.new] do |f| %>
+        <%= f.text_area :text, class: "form-control" %>
+        <div class="row">
+          <%= link_to "Cancel", url_for(params), :class => "btn btn-default pull-left left-top-margin", method: :get%>
+          <%= f.submit "Post", :class => "btn btn-primary pull-right right-top-margin"%>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
